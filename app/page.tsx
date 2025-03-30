@@ -138,13 +138,20 @@ export default function Home() {
         }`}
       >
         <div className="container flex h-20 items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2 z-50">
-            <div className="relative size-10 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg flex items-center justify-center">
-              <Building2 className="h-6 w-6 text-white absolute" />
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg blur-lg opacity-50"></div>
-            </div>
-            <span className="font-bold text-xl tracking-tight">BDR</span>
-          </Link>
+        <Link href="/" className="flex items-center space-x-2 z-50">
+        <div className="relative bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg flex items-center justify-center w-16 h-16">
+          {/* The background blur with a lower z-index */}
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg blur-lg opacity-50 z-0"></div>
+          
+          {/* The image above the blur */}
+          <img 
+            src="/BDR.jpg"
+            alt="Placeholder"
+            className="h-16 w-16 rounded-lg z-10"
+          />
+        </div>
+      </Link>
+
 
           {/* Contact Points in Header */}
           <div className="hidden md:flex items-center space-x-6 text-sm">
@@ -155,13 +162,13 @@ export default function Home() {
               <Phone className="h-4 w-4" />
               <span>(510) 514-9518</span>
             </a>
-            <a
+            {/* <a
               href="mailto:info@bdx-robotics.com"
               className="flex items-center space-x-1 text-white hover:text-teal-400 transition-colors"
             >
               <Mail className="h-4 w-4" />
               <span>info@bdx-robotics.com</span>
-            </a>
+            </a> */}
             <a
               href="https://maps.google.com/?q=19+Morris+Ave,+Brooklyn,+NY+11205"
               target="_blank"
@@ -174,7 +181,7 @@ export default function Home() {
           </div>
 
           <nav className="hidden lg:flex items-center space-x-8">
-            {["solutions", "benefits", "coverage", "technology", "testimonials", "about", "contact"].map((item) => (
+            {["solutions", "benefits", "coverage", "technology", "testimonials", "about"].map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
@@ -184,6 +191,16 @@ export default function Home() {
                 <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-cyan-600 transition-all duration-300 group-hover:w-full"></span>
               </button>
             ))}
+            <Link href="/careers" className="relative text-sm font-medium text-white/70 hover:text-white transition-colors group">Careers
+            <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-cyan-600 transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+            <Link
+              href="/blogs"
+              className="relative text-sm font-medium text-white/70 hover:text-white transition-colors group"
+            >
+              Blogs
+              <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-cyan-600 transition-all duration-300 group-hover:w-full"></span>
+            </Link>
           </nav>
 
           <div className="flex items-center gap-4 z-50">
@@ -229,7 +246,7 @@ export default function Home() {
             </a>
           </div>
 
-          {["solutions", "benefits", "coverage", "technology", "testimonials", "about", "contact"].map((item) => (
+          {["solutions", "benefits", "coverage", "technology", "about"].map((item) => (
             <button
               key={item}
               onClick={() => scrollToSection(item)}
@@ -238,6 +255,11 @@ export default function Home() {
               {item.charAt(0).toUpperCase() + item.slice(1)}
             </button>
           ))}
+          <Link href="/blogs" className="text-2xl font-medium text-white/80 hover:text-white transition-colors">
+            Blogs
+          </Link>
+          <Link href="/careers" className="text-2xl font-medium text-white/80 hover:text-white transition-colors">
+          Careers </Link>
           <Button
             onClick={() => scrollToSection("contact")}
             className="mt-8 bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white rounded-full px-8 py-6 text-lg"
