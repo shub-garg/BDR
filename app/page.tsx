@@ -1127,7 +1127,7 @@ export default function Home() {
                             name="first-name"
                             type="text"
                             className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-teal-500"
-                            placeholder="John"
+                            placeholder="Jane"
                           />
                         </div>
                         <div className="space-y-2">

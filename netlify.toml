@@ -13,7 +13,7 @@
 
 [forms.quote]
   notifications = [
-    { email = "bilal.sher@bdx-robotics.com" }
+    { email = "raunakshukla17@gmail.com" }
   ]
 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
