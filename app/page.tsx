@@ -1109,14 +1109,7 @@ export default function Home() {
                 <div className="relative p-1 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-600">
                   <div className="bg-black rounded-xl p-8">
                     <h3 className="text-2xl font-bold mb-6">Request a Free Quote</h3>
-                    <form
-                      name="quote"
-                      method="POST"
-                      data-netlify="true"
-                      className="space-y-4"
-                    >
-                      <input type="hidden" name="form-name" value="quote" />
-
+                    <form className="space-y-4">
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <label htmlFor="first-name" className="text-sm font-medium text-white/70">
@@ -1124,10 +1117,8 @@ export default function Home() {
                           </label>
                           <Input
                             id="first-name"
-                            name="first-name"
-                            type="text"
                             className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-teal-500"
-                            placeholder="Jane"
+                            placeholder="John"
                           />
                         </div>
                         <div className="space-y-2">
@@ -1136,92 +1127,74 @@ export default function Home() {
                           </label>
                           <Input
                             id="last-name"
-                            name="last-name"
-                            type="text"
                             className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-teal-500"
                             placeholder="Doe"
                           />
                         </div>
                       </div>
-
                       <div className="space-y-2">
                         <label htmlFor="email" className="text-sm font-medium text-white/70">
                           Email
                         </label>
                         <Input
                           id="email"
-                          name="email"
                           type="email"
                           className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-teal-500"
                           placeholder="name@example.com"
                         />
                       </div>
-
                       <div className="space-y-2">
                         <label htmlFor="phone" className="text-sm font-medium text-white/70">
                           Phone
                         </label>
                         <Input
                           id="phone"
-                          name="phone"
                           type="tel"
                           className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-teal-500"
                           placeholder="(123) 456-7890"
                         />
                       </div>
-
                       <div className="space-y-2">
                         <label htmlFor="company" className="text-sm font-medium text-white/70">
                           Company
                         </label>
                         <Input
                           id="company"
-                          name="company"
-                          type="text"
                           className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-teal-500"
                           placeholder="Your Company"
                         />
                       </div>
-
                       <div className="space-y-2">
                         <label htmlFor="property-address" className="text-sm font-medium text-white/70">
                           Property Address
                         </label>
                         <Input
                           id="property-address"
-                          name="property-address"
-                          type="text"
                           className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-teal-500"
                           placeholder="123 Main St, City, State"
                         />
                       </div>
-
                       <div className="space-y-2">
                         <label htmlFor="roof-size" className="text-sm font-medium text-white/70">
                           Approximate Roof Size (sq ft)
                         </label>
                         <Input
                           id="roof-size"
-                          name="roof-size"
-                          type="text"
                           className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-teal-500"
                           placeholder="e.g., 20,000"
                         />
                       </div>
-
                       <div className="space-y-2">
                         <label htmlFor="message" className="text-sm font-medium text-white/70">
                           Additional Information
                         </label>
                         <textarea
                           id="message"
-                          name="message"
                           rows={3}
                           className="w-full rounded-md bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black p-3 text-sm"
                           placeholder="Tell us about your property and specific needs..."
                         ></textarea>
                       </div>
-
                       <Button
                         type="submit"
                         className="w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white rounded-full py-6"
