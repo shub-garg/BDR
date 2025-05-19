@@ -31,6 +31,7 @@ import { ChatBot } from "@/components/chat-bot"
 import { TestimonialSlider } from "@/components/testimonial-slider"
 import { USMap } from "@/components/us-map"
 import { TechnologyProcess } from "@/components/technology-process"
+import { useRouter } from "next/navigation"
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -116,6 +117,42 @@ export default function Home() {
   const item = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0 },
+  }
+
+  const router = useRouter()
+  const [submitted, setSubmitted] = useState(false)
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const form = e.currentTarget
+    const res = await fetch("/api/quoteForm", {
+      method: "POST",
+      body: new FormData(form),
+    })
+    if (res.ok) {
+      setSubmitted(true)
+    } else {
+      alert("Oops—something went wrong.")
+    }
+  }
+
+  if (submitted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black text-white">
+        <div className="p-8 bg-white/5 rounded-xl text-center">
+          <h1 className="text-4xl font-bold mb-4">Thanks for your request!</h1>
+          <p className="text-lg mb-6">
+            We’ve received your details and will be in touch soon.
+          </p>
+          <button
+            onClick={() => setSubmitted(false)}  // optional “start over”
+            className="inline-block bg-teal-500 hover:bg-teal-600 text-white font-semibold px-6 py-3 rounded"
+          >
+            Back to form
+          </button>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -1109,7 +1146,7 @@ export default function Home() {
                 <div className="relative p-1 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-600">
                   <div className="bg-black rounded-xl p-8">
                     <h3 className="text-2xl font-bold mb-6">Request a Free Quote</h3>
-                    <form className="space-y-4">
+                    <form onSubmit={onSubmit} className="space-y-4">
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <label htmlFor="first-name" className="text-sm font-medium text-white/70">
@@ -1117,8 +1154,9 @@ export default function Home() {
                           </label>
                           <Input
                             id="first-name"
+                            name="first-name"
                             className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-teal-500"
-                            placeholder="John"
+                            placeholder="Jane"
                           />
                         </div>
                         <div className="space-y-2">
@@ -1127,6 +1165,7 @@ export default function Home() {
                           </label>
                           <Input
                             id="last-name"
+                            name="last-name"
                             className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-teal-500"
                             placeholder="Doe"
                           />
@@ -1138,6 +1177,7 @@ export default function Home() {
                         </label>
                         <Input
                           id="email"
+                          name="email"
                           type="email"
                           className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-teal-500"
                           placeholder="name@example.com"
@@ -1149,6 +1189,7 @@ export default function Home() {
                         </label>
                         <Input
                           id="phone"
+                          name="phone"
                           type="tel"
                           className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-teal-500"
                           placeholder="(123) 456-7890"
@@ -1160,6 +1201,7 @@ export default function Home() {
                         </label>
                         <Input
                           id="company"
+                          name="company"
                           className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-teal-500"
                           placeholder="Your Company"
                         />
@@ -1170,6 +1212,7 @@ export default function Home() {
                         </label>
                         <Input
                           id="property-address"
+                          name="property-address"
                           className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-teal-500"
                           placeholder="123 Main St, City, State"
                         />
@@ -1180,6 +1223,7 @@ export default function Home() {
                         </label>
                         <Input
                           id="roof-size"
+                          name="roof-size"
                           className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-teal-500"
                           placeholder="e.g., 20,000"
                         />
@@ -1190,6 +1234,7 @@ export default function Home() {
                         </label>
                         <textarea
                           id="message"
+                          name="message"
                           rows={3}
                           className="w-full rounded-md bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black p-3 text-sm"
                           placeholder="Tell us about your property and specific needs..."
