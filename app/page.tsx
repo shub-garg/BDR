@@ -161,7 +161,7 @@ export default function Home() {
       <div className="bg-gradient-to-r from-teal-600 to-cyan-600 text-white py-2 px-4">
         <div className="container flex justify-between items-center">
           <p className="text-sm md:text-base font-medium">
-            Save 50% or more compared to traditional roof inspections! Serving businesses nationwide.
+          Save 50% or more and get results in 48 hours instead of weeks compared to traditional roof inspections! Serving businesses nationwide.
           </p>
           <a href="tel:5105149518" className="text-white font-bold hover:underline whitespace-nowrap">
             Call: (510) 514-9518
@@ -361,7 +361,7 @@ export default function Home() {
                     transition={{ delay: 0.3, duration: 0.5 }}
                     className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-7xl/none bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80"
                   >
-                    Save 50%+ on Flat Roof Inspections with Robotic Technology
+                    Slash Roof Inspection Costs 50%+ with Smart Robots That See What Others Miss
                   </motion.h1>
                   <motion.p
                     initial={{ opacity: 0, y: 20 }}
@@ -369,8 +369,9 @@ export default function Home() {
                     transition={{ delay: 0.4, duration: 0.5 }}
                     className="max-w-[600px] text-white/70 md:text-xl"
                   >
-                    Our advanced robots detect moisture, leaks, and damage with 99% accuracy - saving you time, money,
-                    and preventing costly water damage.
+                    Our 90% accurate detection technology protects building value, maximizes insurance claims, 
+                    delivers precise contractor estimates, prevents litigation headaches, 
+                    and powers smarter engineering decisions—all in one scan.
                   </motion.p>
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -482,7 +483,7 @@ export default function Home() {
                       <div className="h-10 w-px bg-white/10"></div>
                       <div>
                         <div className="text-sm text-white/70">Accuracy</div>
-                        <div className="text-xl font-bold">99%</div>
+                        <div className="text-xl font-bold">90%</div>
                       </div>
                     </div>
                   </div>
@@ -537,8 +538,7 @@ export default function Home() {
                   Advanced Flat Roof Inspection Services
                 </h2>
                 <p className="max-w-[900px] text-white/70 md:text-xl/relaxed">
-                  Our robotic inspection systems find moisture and damage that traditional methods miss - at half the
-                  cost.
+                  Our robotic inspection systems find moisture and damage that traditional methods miss - at half the cost.
                 </p>
                 <p className="text-lg font-medium text-teal-400">
                   Call us today at (510) 514-9518 for a free consultation
@@ -558,7 +558,7 @@ export default function Home() {
                   icon: <Eye className="h-8 w-8" />,
                   title: "Moisture Detection",
                   description:
-                    "Identify hidden water damage and moisture with 99% accuracy before it causes expensive structural problems.",
+                    "Identify hidden water damage and moisture with 90% accuracy before it causes expensive structural problems.",
                   gradient: "from-teal-500 to-cyan-400",
                   phone: "(510) 514-9518",
                 },
@@ -566,7 +566,7 @@ export default function Home() {
                   icon: <Layers className="h-8 w-8" />,
                   title: "Roof Mapping",
                   description:
-                    "Create detailed 3D maps of your entire roof system with precise measurements and condition reports.",
+                    "Create detailed 3D maps of your entire roof system using point cloud technology with precise measurements and condition reports.",
                   gradient: "from-cyan-500 to-teal-500",
                   phone: "(510) 514-9518",
                 },
@@ -778,8 +778,11 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="technology" className="relative w-full py-24 md:py-32 overflow-hidden">
-          {/* Background elements */}
+        <section
+          id="technology"
+          className="relative w-full py-24 md:py-32 overflow-hidden"
+        >
+          {/* Background elements (blurred circles, gradient, etc.) */}
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-gradient-to-b from-black to-teal-950/30"></div>
             <div className="absolute top-1/4 left-0 w-1/3 h-1/3 bg-teal-500/10 blur-3xl rounded-full"></div>
@@ -799,9 +802,24 @@ export default function Home() {
                   <span className="mr-2 h-2 w-2 rounded-full bg-teal-500"></span>
                   Our Technology
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">
+
+                {/* 
+                  Notice we’ve added `leading-relaxed` (more line-height) and `pb-2` (bottom padding)
+                  so that the descenders of "Technology" never reach the very bottom of the section.
+                */}
+                <h2
+                  className="
+                    text-3xl font-bold tracking-tighter 
+                    sm:text-5xl md:text-6xl 
+                    leading-relaxed    /* ↑ more vertical space for the letter “g”/“y” */
+                    pb-2               /* ↑ a tiny bit of bottom padding just to be safe */
+                    bg-clip-text text-transparent 
+                    bg-gradient-to-r from-white to-white/80
+                  "
+                >
                   How Our Inspection Technology Works
                 </h2>
+
                 <p className="max-w-[900px] text-white/70 md:text-xl/relaxed">
                   Advanced robotics and AI combine to deliver unmatched precision in roof inspection
                 </p>

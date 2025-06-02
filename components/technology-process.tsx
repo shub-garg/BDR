@@ -14,7 +14,7 @@ export function TechnologyProcess() {
     },
     {
       icon: <Smartphone className="h-6 w-6" />,
-      title: "Meta Cam Imaging",
+      title: "MetaCam Imaging",
       description:
         "High-resolution Meta Cam technology captures comprehensive visual data across multiple spectrums, detecting issues that traditional cameras miss.",
     },
@@ -22,7 +22,7 @@ export function TechnologyProcess() {
       icon: <Gauge className="h-6 w-6" />,
       title: "Moisture Detection",
       description:
-        "Specialized sensors identify moisture trapped within roof systems with 99% accuracy, pinpointing water intrusion before visible damage occurs.",
+        "Specialized sensors identify moisture trapped within roof systems with 90% accuracy, pinpointing water intrusion before visible damage occurs.",
     },
     {
       icon: <Cpu className="h-6 w-6" />,
