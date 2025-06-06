@@ -32,12 +32,14 @@ import { TestimonialSlider } from "@/components/testimonial-slider"
 import { USMap } from "@/components/us-map"
 import { TechnologyProcess } from "@/components/technology-process"
 import { useRouter } from "next/navigation"
+import { ChevronDown } from 'lucide-react'
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [showExitPopup, setShowExitPopup] = useState(false)
   const [selectedCustomerType, setSelectedCustomerType] = useState<string | null>(null)
+  const [activeTab, setActiveTab] = useState<"roof" | "concrete">("roof")
   const heroRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -218,27 +220,52 @@ export default function Home() {
           </div>
 
           <nav className="hidden lg:flex items-center space-x-8">
-            {["solutions", "benefits", "coverage", "technology", "testimonials", "about"].map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item)}
-                className="relative text-sm font-medium text-white/70 hover:text-white transition-colors group"
-              >
-                {item.charAt(0).toUpperCase() + item.slice(1)}
-                <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-cyan-600 transition-all duration-300 group-hover:w-full"></span>
-              </button>
-            ))}
-            <Link href="/careers" className="relative text-sm font-medium text-white/70 hover:text-white transition-colors group">Careers
-            <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-cyan-600 transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-            <Link
-              href="/blogs"
+          {/* Replace the map function to exclude "solutions" */}
+          {["benefits", "coverage", "technology", "testimonials", "about"].map((item) => (
+            <button
+              key={item}
+              onClick={() => scrollToSection(item)}
               className="relative text-sm font-medium text-white/70 hover:text-white transition-colors group"
             >
-              Blogs
+              {item.charAt(0).toUpperCase() + item.slice(1)}
               <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-cyan-600 transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-          </nav>
+            </button>
+          ))}
+          
+          {/* Add the Solutions dropdown */}
+          <div className="relative group">
+            <button className="relative text-sm font-medium text-white/70 hover:text-white transition-colors group flex items-center">
+              Solutions
+              <ChevronDown className="ml-1 h-4 w-4" />
+              <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-cyan-600 transition-all duration-300 group-hover:w-full"></span>
+            </button>
+            <div className="absolute top-full left-0 mt-2 w-48 bg-black/90 border border-white/10 rounded-lg backdrop-blur-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <Link
+                href="/solutions?tab=roof"
+                className="block px-4 py-3 text-white hover:text-teal-400 hover:bg-white/5 transition-colors rounded-t-lg"
+              >
+                Roof Inspections
+              </Link>
+              <Link
+                href="/solutions?tab=concrete"
+                className="block px-4 py-3 text-white hover:text-teal-400 hover:bg-white/5 transition-colors rounded-b-lg"
+              >
+                Concrete Inspections
+              </Link>
+            </div>
+          </div>
+          
+          <Link href="/careers" className="relative text-sm font-medium text-white/70 hover:text-white transition-colors group">Careers
+          <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-cyan-600 transition-all duration-300 group-hover:w-full"></span>
+          </Link>
+          <Link
+            href="/blogs"
+            className="relative text-sm font-medium text-white/70 hover:text-white transition-colors group"
+          >
+            Blogs
+            <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-cyan-600 transition-all duration-300 group-hover:w-full"></span>
+          </Link>
+        </nav>
 
           <div className="flex items-center gap-4 z-50">
             <Button
@@ -283,7 +310,7 @@ export default function Home() {
             </a>
           </div>
 
-          {["solutions", "benefits", "coverage", "technology", "about"].map((item) => (
+          {["benefits", "coverage", "technology", "about"].map((item) => (
             <button
               key={item}
               onClick={() => scrollToSection(item)}
@@ -292,6 +319,29 @@ export default function Home() {
               {item.charAt(0).toUpperCase() + item.slice(1)}
             </button>
           ))}
+          <div className="flex flex-col space-y-2 text-center">
+            <span className="text-2xl font-medium text-white">Solutions</span>
+            <Link
+              href="/solutions?tab=roof"
+              className="text-xl font-medium text-white/60 hover:text-white transition-colors"
+              onClick={() => {
+                setMobileMenuOpen(false)
+                document.body.style.overflow = "auto"
+              }}
+            >
+              Roof Inspections
+            </Link>
+            <Link
+              href="/solutions?tab=concrete"
+              className="text-xl font-medium text-white/60 hover:text-white transition-colors"
+              onClick={() => {
+                setMobileMenuOpen(false)
+                document.body.style.overflow = "auto"
+              }}
+            >
+              Concrete Inspections
+            </Link>
+          </div>
           <Link href="/blogs" className="text-2xl font-medium text-white/80 hover:text-white transition-colors">
             Blogs
           </Link>
@@ -535,90 +585,170 @@ export default function Home() {
                   Our Solutions
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">
-                  Advanced Flat Roof Inspection Services
+                  Advanced {activeTab === "roof" ? "Flat Roof" : "Concrete Structure"} Inspection Services
                 </h2>
                 <p className="max-w-[900px] text-white/70 md:text-xl/relaxed">
-                  Our robotic inspection systems find moisture and damage that traditional methods miss - at half the cost.
+                  {activeTab === "roof"
+                    ? "Our robotic inspection systems find moisture and damage that traditional methods miss - at half the cost."
+                    : "Our robotic inspection systems find structural issues that traditional methods miss - preventing costly failures and ensuring safety."}
                 </p>
+
+                {/* Add Tab Toggle */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3, duration: 0.5 }}
+                  className="flex rounded-full border border-white/10 bg-white/5 p-1 backdrop-blur-sm"
+                >
+                  <button
+                    onClick={() => setActiveTab("roof")}
+                    className={`px-8 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                      activeTab === "roof"
+                        ? "bg-gradient-to-r from-teal-500 to-cyan-600 text-white shadow-lg"
+                        : "text-white/70 hover:text-white"
+                    }`}
+                  >
+                    Roof Inspections
+                  </button>
+                  <button
+                    onClick={() => setActiveTab("concrete")}
+                    className={`px-8 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                      activeTab === "concrete"
+                        ? "bg-gradient-to-r from-slate-500 to-slate-600 text-white shadow-lg"
+                        : "text-white/70 hover:text-white"
+                    }`}
+                  >
+                    Concrete Inspections
+                  </button>
+                </motion.div>
                 <p className="text-lg font-medium text-teal-400">
                   Call us today at (510) 514-9518 for a free consultation
                 </p>
               </div>
             </motion.div>
 
-            <motion.div
-              variants={container}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
-            >
-              {[
-                {
-                  icon: <Eye className="h-8 w-8" />,
-                  title: "Moisture Detection",
-                  description:
-                    "Identify hidden water damage and moisture with 90% accuracy before it causes expensive structural problems.",
-                  gradient: "from-teal-500 to-cyan-400",
-                  phone: "(510) 514-9518",
-                },
-                {
-                  icon: <Layers className="h-8 w-8" />,
-                  title: "Roof Mapping",
-                  description:
-                    "Create detailed 3D maps of your entire roof system using point cloud technology with precise measurements and condition reports.",
-                  gradient: "from-cyan-500 to-teal-500",
-                  phone: "(510) 514-9518",
-                },
-                {
-                  icon: <Cloud className="h-8 w-8" />,
-                  title: "Leak Prevention",
-                  description:
-                    "Detect potential leaks before they happen and extend your roof's lifespan by 5-20 years.",
-                  gradient: "from-teal-600 to-cyan-600",
-                  phone: "(510) 514-9518",
-                },
-              ].map((solution, index) => (
-                <motion.div
-                  key={index}
-                  variants={item}
-                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-1"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-2xl"></div>
-                  <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl"></div>
-
-                  <div className="relative z-10 flex flex-col h-full p-6 backdrop-blur-sm">
-                    <div className={`rounded-full bg-gradient-to-br ${solution.gradient} p-3 w-fit mb-6`}>
-                      {solution.icon}
-                    </div>
-                    <h3 className="text-2xl font-bold mb-3">{solution.title}</h3>
-                    <p className="text-white/70 mb-6 flex-grow">{solution.description}</p>
-                    <div className="mt-auto space-y-3">
-                      <div className="flex items-center space-x-2">
-                        <Phone className="h-4 w-4 text-teal-500" />
-                        <a
-                          href={`tel:${solution.phone.replace(/\D/g, "")}`}
-                          className="text-white hover:text-teal-400 transition-colors"
-                        >
-                          {solution.phone}
-                        </a>
+            {activeTab === "roof"
+              ? // Roof Solutions
+                [
+                  {
+                    icon: <Eye className="h-8 w-8" />,
+                    title: "Moisture Detection",
+                    description: "Identify hidden water damage and moisture with 90% accuracy before it causes expensive structural problems.",
+                    gradient: "from-teal-500 to-cyan-400",
+                    phone: "(510) 514-9518",
+                  },
+                  {
+                    icon: <Layers className="h-8 w-8" />,
+                    title: "Roof Mapping",
+                    description: "Create detailed 3D maps of your entire roof system using point cloud technology with precise measurements and condition reports.",
+                    gradient: "from-cyan-500 to-teal-500",
+                    phone: "(510) 514-9518",
+                  },
+                  {
+                    icon: <Cloud className="h-8 w-8" />,
+                    title: "Leak Prevention",
+                    description: "Detect potential leaks before they happen and extend your roof's lifespan by 5-20 years.",
+                    gradient: "from-teal-600 to-cyan-600",
+                    phone: "(510) 514-9518",
+                  },
+                ].map((solution, index) => (
+                  <motion.div
+                    key={index}
+                    variants={item}
+                    className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-1"
+                  >
+                    <div className="relative z-10 flex flex-col h-full p-6 backdrop-blur-sm">
+                      <div className={`rounded-full bg-gradient-to-br ${solution.gradient} p-3 w-fit mb-6`}>
+                        {solution.icon}
                       </div>
-                      <Button
-                        onClick={() => scrollToSection("contact")}
-                        variant="ghost"
-                        className="group/btn px-0 text-white hover:bg-transparent"
-                      >
-                        <span className="mr-2">Get a Quote</span>
-                        <span className="relative overflow-hidden inline-block">
-                          <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover/btn:translate-x-full" />
-                          <ArrowRight className="h-4 w-4 absolute top-0 -left-6 transform transition-transform duration-300 group-hover/btn:translate-x-6" />
-                        </span>
-                      </Button>
+                      <h3 className="text-2xl font-bold mb-3">{solution.title}</h3>
+                      <p className="text-white/70 mb-6 flex-grow">{solution.description}</p>
+                      <div className="mt-auto space-y-3">
+                        <div className="flex items-center space-x-2">
+                          <Phone className="h-4 w-4 text-teal-500" />
+                          <a
+                            href={`tel:${solution.phone.replace(/\D/g, "")}`}
+                            className="text-white hover:text-teal-400 transition-colors"
+                          >
+                            {solution.phone}
+                          </a>
+                        </div>
+                        <Button
+                          onClick={() => scrollToSection("contact")}
+                          variant="ghost"
+                          className="group/btn px-0 text-white hover:bg-transparent"
+                        >
+                          <span className="mr-2">Get a Quote</span>
+                          <span className="relative overflow-hidden inline-block">
+                            <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover/btn:translate-x-full" />
+                            <ArrowRight className="h-4 w-4 absolute top-0 -left-6 transform transition-transform duration-300 group-hover/btn:translate-x-6" />
+                          </span>
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+                  </motion.div>
+                ))
+              : // Concrete Solutions
+                [
+                  {
+                    icon: <Building2 className="h-8 w-8" />,
+                    title: "Foundation Inspection",
+                    description: "Detect settlement issues, cracks, and moisture problems in building foundations before they compromise structural integrity.",
+                    gradient: "from-slate-500 to-slate-400",
+                  },
+                  {
+                    icon: <Layers className="h-8 w-8" />,
+                    title: "Parking Garage Assessment", 
+                    description: "Identify rebar corrosion, concrete deterioration, and structural weaknesses that could lead to catastrophic collapse.",
+                    gradient: "from-slate-600 to-slate-500",
+                  },
+                  {
+                    icon: <Shield className="h-8 w-8" />,
+                    title: "Bridge & Infrastructure",
+                    description: "Comprehensive structural health monitoring for bridges, tunnels, and critical infrastructure without traffic disruption.",
+                    gradient: "from-slate-700 to-slate-600",
+                  },
+                  {
+                    icon: <FileText className="h-8 w-8" />,
+                    title: "Building Structure Analysis",
+                    description: "Complete structural assessment of concrete buildings, identifying load-bearing issues and maintenance needs.",
+                    gradient: "from-slate-800 to-slate-700",
+                  },
+                ].map((solution, index) => (
+                  <motion.div
+                    key={index}
+                    variants={item}
+                    className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-1"
+                  >
+                    <div className="relative z-10 flex flex-col h-full p-6 backdrop-blur-sm">
+                      <div className={`rounded-full bg-gradient-to-br ${solution.gradient} p-3 w-fit mb-6`}>
+                        {solution.icon}
+                      </div>
+                      <h3 className="text-2xl font-bold mb-3">{solution.title}</h3>
+                      <p className="text-white/70 mb-6 flex-grow">{solution.description}</p>
+                      <div className="mt-auto space-y-3">
+                        <div className="flex items-center space-x-2">
+                          <Phone className="h-4 w-4 text-slate-500" />
+                          <a href="tel:5105149518" className="text-white hover:text-slate-400 transition-colors">
+                            (510) 514-9518
+                          </a>
+                        </div>
+                        <Button
+                          onClick={() => scrollToSection("contact")}
+                          variant="ghost"
+                          className="group/btn px-0 text-white hover:bg-transparent"
+                        >
+                          <span className="mr-2">Get a Quote</span>
+                          <span className="relative overflow-hidden inline-block">
+                            <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover/btn:translate-x-full" />
+                            <ArrowRight className="h-4 w-4 absolute top-0 -left-6 transform transition-transform duration-300 group-hover/btn:translate-x-6" />
+                          </span>
+                        </Button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
           </div>
         </section>
 
@@ -1078,7 +1208,7 @@ export default function Home() {
                   Get in Touch
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl md:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">
-                  Save 50%+ on Your Next Roof Inspection
+                  Save 50%+ on Your Next {activeTab === "roof" ? "Roof" : "Concrete"} Inspection
                 </h2>
                 <p className="max-w-[900px] text-white/70 md:text-xl/relaxed">
                   Contact us today to schedule your inspection or request a free quote.
